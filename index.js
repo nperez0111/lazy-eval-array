@@ -20,7 +20,6 @@ const exportable = ( withMemoization = true ) => {
         return makeProxy( arr, obj )
     }
 }
-
-
+lazy( [ 0, 1, 2, 3, () => 4 ] )
 module.exports = exportable( true )
 module.exports.noMemoization = exportable( false )
