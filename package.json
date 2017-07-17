@@ -1,6 +1,6 @@
 {
     "name": "lazy-eval-array",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Lazily Evaluates Arrays via a function that is called on-read",
     "license": "MIT",
     "repository": "nperez0111/lazy-eval-array",
