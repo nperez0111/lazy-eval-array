@@ -5,7 +5,7 @@ const log = a => {
     console.log( a );
     return a
 }
-const exportable = ( withMemoization = true, promisify = false ) => {
+const exportable = ( withMemoization, promisify ) => {
     const transform = obj => promisify ? Promise.resolve( obj ) : obj
 
     return ( arr, ctx, ...args ) => {
@@ -27,7 +27,7 @@ const exportable = ( withMemoization = true, promisify = false ) => {
     }
 }
 
-module.exports = exportable( true )
-module.exports.noMemoization = exportable( false )
+module.exports = exportable( true, false )
+module.exports.noMemoization = exportable( false, false )
 module.exports.promisify = exportable( true, true )
 module.exports.promisify.noMemoization = exportable( false, true )
