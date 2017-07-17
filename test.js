@@ -22,6 +22,15 @@ test( 'mapping gives all of its value', t => {
     const a = x.map( a => a )
     t.deepEqual( a, e )
 } )
+test( 'all values returned as promise', t => {
+    const x = fn.promisify( [ 2, 1, () => 5 ] )
+    const e = [ 2, 1, 5 ]
+    x.forEach( ( a, i ) => {
+        a.then( val => {
+            t.deepEqual( val, e[ i ] )
+        } )
+    } )
+} )
 test( 'is memoized to not run multiple times', t => {
     let i = 0
     const x = fn( [ 0, 1, () => {

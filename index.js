@@ -5,15 +5,21 @@ const log = a => {
     console.log( a );
     return a
 }
-const exportable = ( withMemoization = true ) => {
+const exportable = ( withMemoization = true, promisify = false ) => {
+    const transform = obj => promisify ? Promise.resolve( obj ) : obj
+
     return ( arr, ctx, ...args ) => {
         const obj = arr.reduce( ( acc, el, i ) => {
             if ( isFunc( el ) ) {
                 const fn = withMemoization ? memoize( el.bind( ctx ) ) : el
-                const runFn = function () {
-                    return fn.apply( ctx, [ i ].concat( args ) )
-                }
+
+                const runFn = () => transform( fn.apply( ctx, [ i ].concat( args ) ) )
+
                 acc[ i ] = runFn
+            } else {
+                if ( promisify ) {
+                    acc[ i ] = () => transform( el )
+                }
             }
             return acc
         }, {} )
@@ -23,3 +29,5 @@ const exportable = ( withMemoization = true ) => {
 
 module.exports = exportable( true )
 module.exports.noMemoization = exportable( false )
+module.exports.promisify = exportable( true, true )
+module.exports.promisify.noMemoization = exportable( false, true )

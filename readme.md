@@ -50,6 +50,17 @@ Type: `Anything`
 These are the parameters that the inner function is called with. The first parameter that is called if the current index. Meaning the function signature is:
 `function (current Index, args1, args2, argsN)`
 
+### lazyEvalArray.noMemoization(input, ctx,[ arg1, arg2, argN... ])
+
+Same as above but would not memoize the output of the function ran
+
+### lazyEvalArray.promisify(input, ctx,[ arg1, arg2, argN... ])
+
+Resolves all values as promises normalizing output of each function as well as each value
+
+### lazyEvalArray.promisify.noMemoization(input, ctx,[ arg1, arg2, argN... ])
+
+Same as above but will not cache the output of the functions ran
 
 ## License
 
